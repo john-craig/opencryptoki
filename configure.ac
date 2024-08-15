@@ -170,6 +170,12 @@ AC_ARG_ENABLE([p11sak],
 	[],
 	[enable_p11sak=yes])
 
+dnl --- p11kmip tool
+AC_ARG_ENABLE([p11kmip],
+	AS_HELP_STRING([--enable-p11kmip],[build p11kmip tool @<:@default=no@:>@]),
+	[],
+	[enable_p11kmip=no])
+
 dnl --- pkcstok_migrate
 AC_ARG_ENABLE([pkcstok_migrate],
 	AS_HELP_STRING([--enable-pkcstok_migrate],[build pkcstok_migrate tool @<:@default=enabled@:>@]),
@@ -701,6 +707,9 @@ AM_CONDITIONAL([ENABLE_PKCSEP11_SESSION], [test "x$enable_pkcsep11_session" = "x
 dnl --- enable_p11sak
 AM_CONDITIONAL([ENABLE_P11SAK], [test "x$enable_p11sak" = "xyes"])
 
+dnl --- enable_p11kmip
+AM_CONDITIONAL([ENABLE_P11KMIP], [test "x$enable_p11kmip" = "xyes"])
+
 dnl --- enable_pkcstok_migrate
 AM_CONDITIONAL([ENABLE_PKCSTOK_MIGRATE], [test "x$enable_pkcstok_migrate" = "xyes"])
 
@@ -780,6 +789,8 @@ AM_COND_IF([ENABLE_PKCSSTATS],
            [AC_CONFIG_FILES([man/man1/pkcsstats.1])])
 AM_COND_IF([ENABLE_P11SAK],
            [AC_CONFIG_FILES([man/man1/p11sak.1])])
+AM_COND_IF([ENABLE_P11KMIP],
+           [AC_CONFIG_FILES([man/man1/p11kmip.1])])
 AM_COND_IF([ENABLE_PKCSEP11_MIGRATE],
            [AC_CONFIG_FILES([man/man1/pkcsep11_migrate.1])])
 AM_COND_IF([ENABLE_PKCSEP11_SESSION],
@@ -808,6 +819,7 @@ echo "	Library build:		$enable_library"
 echo "	Systemd service:	$enable_systemd"
 echo "	Build with libudev:	$with_libudev"
 echo "	Build p11sak tool:	$enable_p11sak"
+echo "  Build p11kmip tool: $enable_p11kmip"
 echo "	token migrate tool:	$enable_pkcstok_migrate"
 echo "	token admin tool:	$enable_pkcstok_admin"
 echo "	statistics tool:	$enable_pkcsstats"
